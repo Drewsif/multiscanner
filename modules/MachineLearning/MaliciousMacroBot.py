@@ -10,21 +10,18 @@ TYPE = "MachineLearning"
 NAME = "MaliciousMacroBot"
 REQUIRES = ['libmagic']
 DEFAULTCONF = {
-    'ENABLED': True
+    'ENABLED': False
     }
-
-try:
-    from mmbot import MaliciousMacroBot
-    has_mmbot = True
-except:
-    print("mmbot module not installed...")
-    has_mmbot = False
 
 
 def check(conf=DEFAULTCONF):
     if not conf['ENABLED']:
         return False
-    if not has_mmbot:
+    try:
+        global MaliciousMacroBot
+        from mmbot import MaliciousMacroBot
+    except:
+        print("mmbot module not installed...")
         return False
     return True
 
